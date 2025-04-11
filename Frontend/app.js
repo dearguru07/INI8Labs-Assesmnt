@@ -1,17 +1,14 @@
-const apiUrl = 'http://localhost:5000/users'; // your backend endpoint
 const userForm = document.getElementById('userForm');
 const userList = document.getElementById('userList');
 
 let editingUserId = null;
 
-// Load users
 async function fetchUsers() {
   const res = await fetch(apiUrl);
   const users = await res.json();
   renderUsers(users);
 }
 
-// Render users
 function renderUsers(users) {
   userList.innerHTML = '';
   users.forEach(user => {
@@ -28,7 +25,6 @@ function renderUsers(users) {
   });
 }
 
-// Add or Update user
 userForm.addEventListener('submit', async (e) => {
   e.preventDefault();
   const name = document.getElementById('name').value;
@@ -56,7 +52,6 @@ userForm.addEventListener('submit', async (e) => {
   fetchUsers();
 });
 
-// Edit user
 function editUser(id, name, email, dob) {
   document.getElementById('name').value = name;
   document.getElementById('email').value = email;
@@ -64,7 +59,6 @@ function editUser(id, name, email, dob) {
   editingUserId = id;
 }
 
-// Delete user
 async function deleteUser(id) {
   await fetch(`${apiUrl}/${id}`, {
     method: 'DELETE'
@@ -72,5 +66,4 @@ async function deleteUser(id) {
   fetchUsers();
 }
 
-// Initial load
 fetchUsers();
